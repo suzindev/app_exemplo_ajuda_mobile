@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Exemplo Ajuda</string>
+    <string name="registrar">REGISTRAR</string>
+    <string name="entrar">ENTRAR</string>
+    <string name="senha_acesso">Senha de acesso</string>
+    <string name="usuario_acesso">Usuário de acesso</string>
+    <string name="ajuda">AJUDA</string>
+    <string name="register">REGISTRE-SE</string>
+    <string name="usuario">Usuário</string>
+    <string name="senha">Senha</string>
+    <string name="confirma_senha">Confirma senha</string>
+    <string name="salvar">SALVAR</string>
+</resources>
