@@ -1,5 +1,6 @@
 package br.com.suzintech.exemploajuda;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -7,7 +8,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import br.com.suzintech.exemploajuda.database.dao.UsuarioDAO;
 import br.com.suzintech.exemploajuda.database.model.UsuarioModel;
@@ -36,13 +39,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (edUsuario.getText().toString().isEmpty()) {
-                    mensagemErro("Campo usuário é obrigatório!");
+                    mensagem("Campo usuário é obrigatório!");
                 } else if (edSenha.getText().toString().isEmpty()) {
-                    mensagemErro("Campo senha é obrigatório!");
+                    mensagem("Campo senha é obrigatório!");
                 } else if (edConfirmaSenha.getText().toString().isEmpty()) {
-                    mensagemErro("Campo confirma senha é obrigatório!");
+                    mensagem("Campo confirma senha é obrigatório!");
                 } else if (!edSenha.getText().toString().equals(edConfirmaSenha.getText().toString())) {
-                    mensagemErro("As senhas diferem!");
+                    mensagem("As senhas diferem!");
                 } else {
                     usuarioDAO = new UsuarioDAO(RegisterActivity.this);
 
@@ -51,14 +54,33 @@ public class RegisterActivity extends AppCompatActivity {
                     usuarioModel.setSenha(edSenha.getText().toString());
 
                     if (usuarioDAO.insert(usuarioModel) != -1) {
-
+                        alertDialog("Usuário salvo!", true);
+                    } else {
+                        alertDialog("Falha ao salvar o usuário!", false);
                     }
                 }
             }
         });
     }
 
-    private void mensagemErro(String mensagem) {
+    private void mensagem(String mensagem) {
         Toast.makeText(RegisterActivity.this, mensagem, Toast.LENGTH_SHORT).show();
+    }
+
+    private void alertDialog(final String mensagem, final boolean fecharJanela) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(RegisterActivity.this);
+        alert.setTitle("Informação");
+        alert.setIcon(ContextCompat.getDrawable(RegisterActivity.this, R.drawable.img_login));
+        alert.setMessage(mensagem);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                dialog.dismiss();
+
+                if (fecharJanela)
+                    finish();
+            }
+        });
+        alert.create().show();
     }
 }

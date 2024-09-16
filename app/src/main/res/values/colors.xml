@@ -6,4 +6,5 @@
     <color name="btn_registrar">#8f8f8f</color>
     <color name="txt_titulo_login">#4e2a15</color>
     <color name="primaria">#f67828</color>
+    <color name="fundo">#dcdcdc</color>
 </resources>
